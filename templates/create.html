@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create a New Post</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>✍️ Create a New Post</h1>
+        <nav>
+            <a href="/">🏠 Home</a>
+            <a href="/posts">📚 All Posts</a>
+        </nav>
+    </header>
+
+    <main>
+        <form action="/create" method="post">
+            <label>Title:</label>
+            <input type="text" name="title" required>
+
+            <label>Author:</label>
+            <input type="text" name="author" required>
+
+            <label>Content:</label>
+            <textarea name="content" rows="5" required></textarea>
+
+            <button type="submit">Publish</button>
+        </form>
+    </main>
+</body>
+</html>

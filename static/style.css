@@ -1,0 +1,80 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fffafc;
+    color: #333;
+    margin: 40px auto;
+    max-width: 800px;
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    color: #c94b83;
+}
+
+nav {
+    background-color: #fde4ef;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+nav a {
+    color: #c94b83;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+.post {
+    background: #fff;
+    border: 1px solid #f5c6d4;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(201, 75, 131, 0.1);
+}
+
+button, input[type="submit"] {
+    background-color: #c94b83;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover, input[type="submit"]:hover {
+    background-color: #a23c6a;
+}
+
+textarea, input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    font-family: inherit;
+}
+
+.about-container {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.profile-pic {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+}
+.about-container {
+    text-align: center;
+    margin-top: 40px;
+}

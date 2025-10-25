@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    <small>By {{ post.author }} | {{ post.date.strftime('%Y-%m-%d %H:%M') }}</small>
+    <br><br>
+    <a href="{{ url_for('index') }}">⬅ Back to all posts</a>
+</body>
+</html>

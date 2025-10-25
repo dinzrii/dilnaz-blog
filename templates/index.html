@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Blog</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('index') }}">🏠 Home</a> |
+        <a href="{{ url_for('add_post') }}">➕ Add Post</a> |
+        <a href="{{ url_for('about') }}">About Me</a>
+    </nav>
+
+    <h1>🌷 Welcome to Dilnaz’s Blog!</h1>
+
+    <div class="posts">
+        {% for post in posts %}
+            <div class="post">
+                <h2><a href="{{ url_for('post_detail', id=post.id) }}">{{ post.title }}</a></h2>
+                <p><em>by {{ post.author }} | {{ post.date.strftime('%Y-%m-%d') }}</em></p>
+                <p>{{ post.content[:150] }}...</p>
+            </div>
+        {% else %}
+            <p>No posts yet. <a href="{{ url_for('add_post') }}">Add one!</a></p>
+        {% endfor %}
+    </div>
+</body>
+</html>

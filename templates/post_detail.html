@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('index') }}">🏠 Home</a> |
+        <a href="{{ url_for('add_post') }}">➕ Add Post</a> |
+        <a href="{{ url_for('about') }}">About Me</a>
+    </nav>
+
+    <h1>{{ post.title }}</h1>
+    <p><em>by {{ post.author }} | {{ post.date.strftime('%Y-%m-%d %H:%M') }}</em></p>
+
+    <div class="content">
+        {{ post.content }}
+    </div>
+    
+    <a href="{{ url_for('edit_post', id=post.id) }}">✏️ Edit</a> |
+    <a href="{{ url_for('delete_post', id=post.id) }}" onclick="return confirm('Delete this post?');">🗑️ Delete</a>
+
+    <p><a href="{{ url_for('index') }}">⬅ Back to posts</a></p>
+</body>
+</html>
