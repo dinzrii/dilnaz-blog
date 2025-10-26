@@ -9,11 +9,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <nav>
-        <a href="{{ url_for('index') }}">🏠 Home</a> |
-        <a href="{{ url_for('add_post') }}">➕ Add Post</a> |
-        <a href="{{ url_for('about') }}">About Me</a>
-    </nav>
 
     <div class="post-detail">
         <h1>{{ post.title }}</h1>
@@ -35,7 +30,8 @@
         <div class="actions">
             {% if post.author == "Dilnaz" %}
                 <a href="{{ url_for('edit_post', id=post.id) }}">✏️ Edit</a> |
-                <a href="{{ url_for('delete_post', id=post.id) }}" onclick="return confirm('Delete this post?');">🗑️ Delete</a>
+                <a href="{{ url_for('delete_post', id=post.id) }}" 
+                    onclick="return confirm('Delete this post?');">🗑️ Delete</a>
             {% endif %}
         </div>
     </div>

@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import os
 from werkzeug.utils import secure_filename
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 
@@ -23,12 +24,14 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+migrate = Migrate(app, db) 
+
 # Модель Post
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
-    author = db.Column(db.String(50), nullable=False, default='Anonymous')
+    author = db.Column(db.String(50), nullable=False)
     date = db.Column(db.DateTime, default=datetime.utcnow)
     image_filename = db.Column(db.String(100), nullable=True)
 
@@ -47,6 +50,7 @@ def add_post():
     if request.method == 'POST':
         title = request.form['title']
         content = request.form['content']
+        author = request.form['author']
         image = request.files.get('image')
         filename = None
 
@@ -101,7 +105,13 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=False)
+
+@app.cli.command("fix_authors")
+def fix_authors():
+    posts = Post.query.filter_by(author="Anonymous").all()
+    for p in posts:
+        p.author = "Dilnaz"
+    db.session.commit()
+    print("✅ All 'Anonymous' authors replaced with 'Dilnaz'")
