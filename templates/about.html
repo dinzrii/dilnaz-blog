@@ -1,35 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Add Post - My Blog{% endblock %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>About Me</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-        .about-container {
-            text-align: center;
-            margin-top: 40px;
-        }
-        .about-container img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #d48bd4;
-        }
-    </style>
 </head>
 <body>
-    <nav>
-        <a href="{{ url_for('index') }}">🏠 Home</a> |
-        <a href="{{ url_for('add_post') }}">➕ Add Post</a> |
-        <a href="{{ url_for('about') }}">About Me</a>
-    </nav>
-
+    
     <div class="about-container">
         <h1>🌸 About Me</h1>
-        <img src="{{ url_for('static', filename='images/me.jpg') }}" alt="My photo">
-        <p>Hi! I'm Dilnaz — the creator of this blog.  
-        I love writing, coding, and learning new things every day 💻✨</p>
+
+        <div class="about-content">
+            <img src="{{ url_for('static', filename='uploads/me.jpg') }}" 
+                 alt="My Photo"
+                 class="about-photo">
+
+            <div class="about-text">
+                <h2>Hello! I’m <span class="highlight">Dilnaz</span> 🌷</h2>
+                <p>
+                    Welcome to my personal blog! Here I share my thoughts, ideas, 
+                    and creative projects. Writing for me is a way to capture moments 
+                    and emotions that make life brighter. ✨
+                </p>
+
+                <p>
+                    Apart from blogging, I enjoy learning new things, exploring art, 
+                    and connecting with inspiring people.  
+                    I hope my posts bring a bit of warmth and inspiration to your day 💫
+                </p>
+
+                <p class="contact">
+                    📩 You can reach me at: <a href="mailto:dilnazdoshchanov@gmail.com">dilnazdoshchanov@gmail.com</a>
+                </p>
+            </div>
+        </div>
+
+        <p class="back-link"><a href="{{ url_for('index') }}">⬅ Back to Home</a></p>
     </div>
 </body>
 </html>
+{% endblock %}

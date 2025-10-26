@@ -2,8 +2,16 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+
+app.config['UPLOAD_FOLDER'] = 'static/uploads'
+app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024  # максимум 2 МБ
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # Проверяем наличие папки для базы
 if not os.path.exists('instance'):
@@ -22,6 +30,7 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable=False)
     author = db.Column(db.String(50), nullable=False, default='Anonymous')
     date = db.Column(db.DateTime, default=datetime.utcnow)
+    image_filename = db.Column(db.String(100), nullable=True)
 
     def __repr__(self):
         return f'<Post {self.id} - {self.title}>'
@@ -38,12 +47,20 @@ def add_post():
     if request.method == 'POST':
         title = request.form['title']
         content = request.form['content']
-        author = request.form['author']
-        new_post = Post(title=title, content=content, author=author)
+        image = request.files.get('image')
+        filename = None
+
+        if image and allowed_file(image.filename):
+            filename = secure_filename(image.filename)
+            image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+        new_post = Post(title=title, content=content, image_filename=filename)
         db.session.add(new_post)
         db.session.commit()
         return redirect(url_for('index'))
+
     return render_template('add_post.html')
+
 
 # Просмотр поста
 @app.route('/post/<int:id>')
@@ -75,6 +92,14 @@ def delete_post(id):
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+app.config['UPLOAD_FOLDER'] = 'static/uploads'
+app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024  # максимум 2 МБ
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 if __name__ == '__main__':
     with app.app_context():

@@ -1,25 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Add Post - My Blog{% endblock %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add post</title>
+    <title>Add Post</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Add New Post</h1>
-    <form method="POST">
-        <label>Title:</label><br>
-        <input type="text" name="title" required><br><br>
 
-        <label>Content:</label><br>
-        <textarea name="content" rows="5" required></textarea><br><br>
+    <div class="form-container">
+        <h1>➕ Create a New Blog Post</h1>
 
-        <label>Author:</label><br>
-        <input type="text" name="author"><br><br>
+        <form action="{{ url_for('add_post') }}" method="POST" enctype="multipart/form-data" class="blog-form">
+            <label for="title">📘 Title</label>
+            <input type="text" id="title" name="title" placeholder="Enter post title" required>
 
-        <button type="submit">Save</button>
-    </form>
+            <label for="author">✍️ Author</label>
+            <input type="text" id="author" name="author" placeholder="Your name" required>
 
-    <a href="{{ url_for('index') }}">⬅ Back</a>
+            <label for="content">📝 Content</label>
+            <textarea id="content" name="content" rows="8" placeholder="Write your story..." required></textarea>
+
+            <label for="image">📷 Upload Image</label>
+            <input type="file" id="image" name="image" accept="image/*">
+
+            <button type="submit" class="submit-btn">Publish</button>
+        </form>
+
+        <p class="back-link"><a href="{{ url_for('index') }}">⬅ Back to Home</a></p>
+    </div>
 </body>
 </html>
+{% endblock %}
